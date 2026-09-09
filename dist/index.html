@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#100827">
+  <meta name="theme-color" content="#160d12">
   <meta name="description" content="Semih ve Baron Özcan arasında dokunmatik kontrollü neon dövüş oyunu.">
   <title>Semih vs Baron Özcan</title>
   <link rel="stylesheet" href="style.css">
@@ -12,7 +12,8 @@
   <main class="game-shell">
     <section class="game-card" aria-label="Neon Dövüş oyunu">
       <canvas id="game" width="1000" height="600" aria-label="Oyun alanı"></canvas>
-      <button id="startButton" class="start-button">DÖVÜŞÜ BAŞLAT</button>
+      <button id="fullscreenButton" class="fullscreen-button" aria-label="Tam ekran aç">⛶ TAM EKRAN</button>
+      <button id="startButton" class="start-button hidden">DÖVÜŞÜ BAŞLAT</button>
       <div id="rotateHint" class="rotate-hint">Telefonu yatay çevir</div>
     </section>
 
@@ -24,6 +25,8 @@
       <div class="action-controls">
         <button class="control jump" data-control="jump">ZIPLA</button>
         <button class="control punch" data-control="punch">YUMRUK</button>
+        <button class="control block" data-control="block">SAVUN</button>
+        <button class="control special" data-control="special">ÖZEL</button>
       </div>
     </section>
   </main>

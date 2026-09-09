@@ -14,7 +14,7 @@ body {
   place-items: center;
   min-height: 100svh;
   padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
-  background: radial-gradient(circle at 50% 20%, #31105b 0, #100827 48%, #05030b 100%);
+  background: radial-gradient(circle at 50% 20%, #52200f 0, #170b18 48%, #05030b 100%);
   user-select: none;
 }
 
@@ -59,6 +59,21 @@ canvas { display: block; width: 100%; height: 100%; }
 
 .start-button.hidden { display: none; }
 
+.fullscreen-button {
+  position: absolute;
+  z-index: 5;
+  top: 12px;
+  right: 12px;
+  padding: 9px 13px;
+  border: 2px solid #ffffffaa;
+  border-radius: 12px;
+  color: #fff;
+  background: #080511bb;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 0 14px #36e7ff66;
+}
+
 .controls {
   display: flex;
   justify-content: space-between;
@@ -68,7 +83,8 @@ canvas { display: block; width: 100%; height: 100%; }
   padding: 2px 4px;
 }
 
-.move-controls, .action-controls { display: flex; gap: 12px; }
+.move-controls { display: flex; gap: 12px; }
+.action-controls { display: grid; grid-template-columns: repeat(4, auto); gap: 10px; }
 
 .control {
   width: clamp(68px, 12vw, 104px);
@@ -87,6 +103,8 @@ canvas { display: block; width: 100%; height: 100%; }
 .move { color: #54eaff; background: #0a5772cc; font-size: 30px; }
 .jump { color: #ffdf65; background: #75520bcc; }
 .punch { color: #ff5ca9; background: #7d164fcc; }
+.block { color: #8da9ff; background: #243675dd; }
+.special { color: #a5ff72; background: #27620fdd; }
 .control.active, .control:active { transform: translateY(3px) scale(.97); filter: brightness(1.45); }
 
 .rotate-hint { display: none; position: absolute; inset: 0; place-items: center; background: #0c071be8; color: white; font-size: 24px; font-weight: 800; }
@@ -99,52 +117,59 @@ canvas { display: block; width: 100%; height: 100%; }
   body { padding-block: 4px; }
 
   .game-shell {
-    width: min(100%, 1000px);
-    height: calc(100svh - 8px);
+    width: 100%;
+    height: 100svh;
     justify-content: center;
-    gap: 6px;
+    gap: 0;
   }
 
   .game-card {
     flex: 0 1 auto;
-    width: min(100%, calc((100svh - 82px) * 1.6667));
-    max-height: calc(100svh - 82px);
+    width: min(100%, calc(100svh * 1.6667));
+    max-height: 100svh;
     border-radius: 12px;
   }
 
   .controls {
-    flex: 0 0 70px;
-    width: min(100%, calc((100svh - 82px) * 1.6667));
+    position: fixed;
+    z-index: 6;
+    left: 50%;
+    bottom: max(5px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: min(100%, calc(100svh * 1.6667));
     min-width: min(100%, 540px);
-    padding: 4px 2px;
+    padding: 4px 10px;
   }
 
-  .move-controls,
-  .action-controls {
-    flex-direction: row;
-    gap: 10px;
-  }
+  .move-controls { gap: 8px; }
+  .action-controls { grid-template-columns: repeat(4, auto); gap: 7px; }
 
   .control {
-    width: clamp(72px, 13vw, 108px);
+    width: clamp(58px, 10vw, 88px);
     height: 62px;
     border-radius: 18px;
   }
 
   .move { font-size: 29px; }
-  .jump, .punch { font-size: clamp(14px, 2.3vw, 19px); }
+  .jump, .punch, .block, .special { font-size: clamp(11px, 1.9vw, 16px); }
 }
 
 @media (max-height: 390px) and (orientation: landscape) {
   .game-card {
-    width: min(100%, calc((100svh - 70px) * 1.6667));
-    max-height: calc(100svh - 70px);
+    width: min(100%, calc(100svh * 1.6667));
+    max-height: 100svh;
   }
 
   .controls {
-    flex-basis: 60px;
-    width: min(100%, calc((100svh - 70px) * 1.6667));
+    width: min(100%, calc(100svh * 1.6667));
   }
 
   .control { height: 52px; }
+  .action-controls { gap: 5px; }
+  .control { width: clamp(52px, 9.5vw, 76px); font-size: 12px; }
+  .fullscreen-button { top: 7px; right: 7px; padding: 6px 9px; font-size: 11px; }
 }
+
+:fullscreen .game-shell { width: 100vw; height: 100vh; }
+:fullscreen .game-card { width: min(100vw, calc(100vh * 1.6667)); max-height: 100vh; }
+:fullscreen .fullscreen-button { display: none; }
