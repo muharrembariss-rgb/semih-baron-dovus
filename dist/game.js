@@ -108,9 +108,10 @@ function frame(t){
 
 document.querySelectorAll("[data-control]").forEach(button=>{
   const action=button.dataset.control;
-  const down=e=>{e.preventDefault();button.classList.add("active");if(action==="left"||action==="right")controls[action]=true;if(state==="fight"&&action==="jump")semih.jump();if(state==="fight"&&action==="punch")semih.strike();};
+  const down=e=>{e.preventDefault();button.setPointerCapture?.(e.pointerId);button.classList.add("active");if(action==="left"||action==="right")controls[action]=true;if(state==="fight"&&action==="jump")semih.jump();if(state==="fight"&&action==="punch")semih.strike();};
   const up=e=>{e.preventDefault();button.classList.remove("active");if(action==="left"||action==="right")controls[action]=false;};
-  button.addEventListener("pointerdown",down);button.addEventListener("pointerup",up);button.addEventListener("pointercancel",up);button.addEventListener("pointerleave",up);
+  button.addEventListener("pointerdown",down);button.addEventListener("pointerup",up);button.addEventListener("pointercancel",up);
+  button.addEventListener("contextmenu",e=>e.preventDefault());
 });
 startButton.addEventListener("click",start);
 canvas.addEventListener("pointerdown",()=>{if(state==="over")start();});

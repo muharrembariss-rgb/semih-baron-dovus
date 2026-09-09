@@ -18,7 +18,13 @@ body {
   user-select: none;
 }
 
-.game-shell { width: min(100%, 1100px); display: grid; gap: 10px; }
+.game-shell {
+  width: min(100%, 1100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
 .game-card {
   position: relative;
@@ -58,6 +64,8 @@ canvas { display: block; width: 100%; height: 100%; }
   justify-content: space-between;
   align-items: center;
   gap: 18px;
+  width: 100%;
+  padding: 2px 4px;
 }
 
 .move-controls, .action-controls { display: flex; gap: 12px; }
@@ -72,6 +80,8 @@ canvas { display: block; width: 100%; height: 100%; }
   font-weight: 900;
   cursor: pointer;
   box-shadow: inset 0 0 15px #ffffff22, 0 0 16px currentColor;
+  touch-action: none;
+  user-select: none;
 }
 
 .move { color: #54eaff; background: #0a5772cc; font-size: 30px; }
@@ -87,8 +97,54 @@ canvas { display: block; width: 100%; height: 100%; }
 
 @media (max-height: 560px) {
   body { padding-block: 4px; }
-  .game-shell { width: min(100%, 920px); grid-template-columns: minmax(0, 1fr) 270px; align-items: center; }
-  .controls { height: 100%; }
-  .move-controls, .action-controls { flex-direction: column; }
-  .control { width: 112px; height: 58px; }
+
+  .game-shell {
+    width: min(100%, 1000px);
+    height: calc(100svh - 8px);
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .game-card {
+    flex: 0 1 auto;
+    width: min(100%, calc((100svh - 82px) * 1.6667));
+    max-height: calc(100svh - 82px);
+    border-radius: 12px;
+  }
+
+  .controls {
+    flex: 0 0 70px;
+    width: min(100%, calc((100svh - 82px) * 1.6667));
+    min-width: min(100%, 540px);
+    padding: 4px 2px;
+  }
+
+  .move-controls,
+  .action-controls {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .control {
+    width: clamp(72px, 13vw, 108px);
+    height: 62px;
+    border-radius: 18px;
+  }
+
+  .move { font-size: 29px; }
+  .jump, .punch { font-size: clamp(14px, 2.3vw, 19px); }
+}
+
+@media (max-height: 390px) and (orientation: landscape) {
+  .game-card {
+    width: min(100%, calc((100svh - 70px) * 1.6667));
+    max-height: calc(100svh - 70px);
+  }
+
+  .controls {
+    flex-basis: 60px;
+    width: min(100%, calc((100svh - 70px) * 1.6667));
+  }
+
+  .control { height: 52px; }
 }
